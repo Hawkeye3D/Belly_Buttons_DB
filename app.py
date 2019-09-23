@@ -14,6 +14,9 @@ app = Flask(__name__)
 # Database Setup
 #################################################
 
+# this CONFIGURES the database location to a specific database
+# later, this can be modified so that it is linked to a completely different DB in 
+# a website, for example.
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/bellybutton.sqlite"
 db = SQLAlchemy(app)
 
