@@ -43,18 +43,19 @@ function buildCharts(sample) {
       }
     };
 
-    let data = [bubble];
-    let layout = {
-      title: "Belly Button Bacteria",
-      xaxis: {title: "OTU ID"}
+  
+    let layout = {  
+      xaxis: {title: "OTU ID"},
+      title:"Dirty Navals"
     };
     Plotly.newPlot("bubble", data, layout);
 
     // @TODO: Build a Pie Chart
+    const toprecs=10
     d3.json(`/samples/${sample}`).then(function(data){
-      let values = data.sample_values.slice(0,10);
-      let labels = data.otu_ids.slice(0,10);
-      let display = data.otu_labels.slice(0,10);
+      let values = data.sample_values.slice(0,toprecs);
+      let labels = data.otu_ids.slice(0,toprecs);
+      let display = data.otu_labels.slice(0,toprecs);
 
       let pie_chart = [{
         values: values,
@@ -68,10 +69,7 @@ function buildCharts(sample) {
     });
   });
 };
-
-    // HINT: You will need to use slice() to grab the top 10 sample_values,
-    // otu_ids, and labels (10 each).
-
+ 
 function init() {
 
   let selector = d3.select("#selDataset");
