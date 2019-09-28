@@ -43,12 +43,12 @@ function buildCharts(sample) {
       }
     };
 
-  
+    let plotdata =[bubble]
     let layout = {  
       xaxis: {title: "OTU ID"},
-      title:"Dirty Navals"
+       
     };
-    Plotly.newPlot("bubble", data, layout);
+    Plotly.newPlot("bubble", plotdata, layout);
 
     // @TODO: Build a Pie Chart
     const toprecs=10
