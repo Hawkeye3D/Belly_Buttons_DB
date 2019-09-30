@@ -1,5 +1,5 @@
 function buildMetadata(sample) {
-
+console.log(sample)
   // @TODO: Complete the following function that builds the metadata panel
 
   // Use `d3.json` to fetch the metadata for a sample
@@ -15,7 +15,10 @@ function buildMetadata(sample) {
       Object.entries(sample).forEach(function([key,value]){
         let row = sampleData.append("p");
         row.text(`${key}:${value}`)
+        console.log(`${key}:${value}`)
+        //console.log(sample.WFREQ)
       })
+      buildGauge(sample.WFREQ)
     });
 }
 
@@ -60,7 +63,7 @@ function buildCharts(sample) {
       let pie_chart = [
         {
           values: values,
-          lables: labels,
+          labels: labels,
           hovertext: display,
           type: "pie"
         }
@@ -71,43 +74,82 @@ function buildCharts(sample) {
     });
   });
 };
-function buildGauge(sample) {
-  d3.json(`/samples/${sample}`).then(function (data) {
-
-
-    var gageData = [
+function rgb(r, g, b){
+  return ["rgb(",r,",",g,",",b,")"].join("");
+}
+function buildGauge(value) {
+ console.log(value)
+ // d3.json(`/samples/${sample}`).then(function (data) {
+    let data1 = [
       {
+        domain: { x: [0, 1], y: [0, 1] },
+        value: value,
+        title: { text: "Frequency" },
         type: "indicator",
-        mode: "gauge+number+delta",
-        value: 5,
-        title: { text: "Frequency", font: { size: 24 } },
-        delta: { reference: 2, increasing: { color: "RebeccaPurple" } },
+        mode: "gauge+number",
+        delta: { reference: 1 },
         gauge: {
-          axis: { range: [null, 10], tickwidth: 1, tickcolor: "darkblue" },
-          bar: { color: "darkblue" },
-          bgcolor: "black",
-          borderwidth: 2,
-          bordercolor: "navy",
+          axis: { range: [null, 10] },
           steps: [
-            { range: [0, 1], color: rgb(0, 255, 0) },
+            { range: [0, 1], color: rgb(0, 255, 0)},
             { range: [1, 2], color: rgb(32, 223, 0) },
             { range: [2, 3], color: rgb(62, 191, 0) },
             { range: [3, 4], color: rgb(94, 159, 0) },
-            { range: [4, 5], color: rgb(127, 127, 64)},
+            { range: [4, 5], color: rgb(127, 127, 64) },
             { range: [5, 6], color: rgb(159, 94, 0) },
             { range: [6, 7], color: rgb(191, 62, 0) },
             { range: [7, 8], color: rgb(223, 32, 0) },
-            { range: [8, 9], color: rgb(255, 0, 0) }
-          ]              
-
+            { range: [8, 9], color: rgb(220, 32, 64) },
+            { range: [9, 10], color: rgb(255, 0, 0) }
+          ],
+          labels:["0-1","1-2","2-3","3-4","4-5","5-6","6-7","7-8","8-9","9-10"]
+  // threshold: {
+  //           line: { color: "red", width: 4 },
+  //           thickness: 0.75,
+  //           value: 5
+  //         }        
         }
       }
-    ] 
-    let layout = { width: 600, height: 450, margin: { t: 0, b: 0 } };
-    Plotly.newPlot('gauge', gageData, layout);
-  }) //end of d3 call
+    ];
+    
+    var layout = { width: 600, height: 450, margin: { t: 0, b: 0 } };
+    Plotly.newPlot('gauge', data1, layout);
+  //})
+  }
+
+  //   var gageData = [
+  //     {
+  //       type: "indicator",
+  //       mode: "gauge+number+delta",
+  //       value:2,// data.WFREQ.value,
+  //       title: { text: "Frequency", font: { size: 24 } },
+  //       delta: { reference: 2, increasing: { color: "RebeccaPurple" } },
+  //       gauge: {
+  //         axis: { range: [null, 10], tickwidth: 1, tickcolor: "darkblue" },
+  //         bar: { color: "darkblue" },
+  //         bgcolor: "black",
+  //         borderwidth: 2,
+  //         bordercolor: "navy",
+  //         steps: [
+  //           { range: [0, 1], color: rgb(0, 255, 0) },
+  //           { range: [1, 2], color: rgb(32, 223, 0) },
+  //           { range: [2, 3], color: rgb(62, 191, 0) },
+  //           { range: [3, 4], color: rgb(94, 159, 0) },
+  //           { range: [4, 5], color: rgb(127, 127, 64)},
+  //           { range: [5, 6], color: rgb(159, 94, 0) },
+  //           { range: [6, 7], color: rgb(191, 62, 0) },
+  //           { range: [7, 8], color: rgb(223, 32, 0) },
+  //           { range: [8, 9], color: rgb(255, 0, 0) }
+  //         ]              
+
+  //       }
+  //     }
+  //   ] 
+  //   let layout = { width: 600, height: 450, margin: { t: 0, b: 0 } };
+  //   Plotly.newPlot('gauge', gageData, layout);
+  // }) //end of d3 call
  
-}
+ 
 
 function init() {
 
@@ -124,9 +166,10 @@ function init() {
 
     //Initialize Charts 
     const firstSample = sampleNames[0];
-    buildCharts(firstSample);
-    // buildGauge(firstsample)
+    
+    buildCharts(firstSample);   
     buildMetadata(firstSample);
+    //buildGauge(3);
   
   });
 }
@@ -137,9 +180,15 @@ function init() {
 function optionChanged(newSample) {
    
   buildCharts(newSample);
-  // buildGauge(newSample);
   buildMetadata(newSample);
+  //buildGauge(4);
 }
-
+var getKeys = function(obj){
+   var keys = [];
+   for(var key in obj){
+      keys.push(key);
+   }
+   return keys;
+}
 // Initialize the dashboard
 init();
