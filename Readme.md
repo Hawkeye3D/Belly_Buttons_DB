@@ -2,7 +2,7 @@
 
 # Belly Button Grossness Research
 
-(Do NOT Lick)
+## (Do NOT Lick)
 
 This was an educational assignment, but the education was not so much D3 as it was getting four code bases to work together.  To that end, I think the Trilogy program is lacking in clarity on the challenges in doing that.  I spent more time on trying to get everything to run than I did on the assignment itself.
 
