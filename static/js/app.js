@@ -31,7 +31,7 @@ function buildCharts(sample) {
     let x_axis = data.otu_ids;
     let y_axis = data.sample_values;
     let texts = data.otu_labels;
-    let size = data.sample_values;
+    let size =  data.sample_values;
     let color = data.otu_ids;
 
 
@@ -98,16 +98,12 @@ function buildGauge(value) {
             { range: [4, 5], color: rgb(127, 127, 64) },
             { range: [5, 6], color: rgb(159, 94, 0) },
             { range: [6, 7], color: rgb(191, 62, 0) },
-            { range: [7, 8], color: rgb(223, 32, 0) },
-            { range: [8, 9], color: rgb(220, 32, 64) },
+            { range: [7, 8], color: rgb(223, 32, 64) },
+            { range: [8, 9], color: rgb(220, 64, 128) },
             { range: [9, 10], color: rgb(255, 0, 0) }
           ],
           labels:["0-1","1-2","2-3","3-4","4-5","5-6","6-7","7-8","8-9","9-10"]
-  // threshold: {
-  //           line: { color: "red", width: 4 },
-  //           thickness: 0.75,
-  //           value: 5
-  //         }        
+        
         }
       }
     ];
