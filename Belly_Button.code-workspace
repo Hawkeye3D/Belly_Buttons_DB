@@ -5,6 +5,6 @@
 		}
 	],
 	"settings": {
-		"python.pythonPath": "pythonBelly\\Scripts\\python.exe"
+		"python.pythonPath": "BellyButtonEnv\\Scripts\\python.exe"
 	}
 }
